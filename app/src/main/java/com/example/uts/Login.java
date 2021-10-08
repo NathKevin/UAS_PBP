@@ -14,7 +14,9 @@ import com.example.uts.model.User;
 import com.example.uts.preferences.UserPreferences;
 import com.example.uts.databinding.ActivityLoginBinding;
 
-public class Login extends AppCompatActivity {
+import java.io.Serializable;
+
+public class Login extends AppCompatActivity implements Serializable {
     
     User user;
     ActivityLoginBinding binding;
@@ -29,47 +31,58 @@ public class Login extends AppCompatActivity {
         user = new User();
         binding.setUser(user);
         binding.setActivity(this);
+
     }
 
     //Response click listener buat button login
     public View.OnClickListener btnLogin = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-           if (user.getEmail().equals("edwin") && user.getPassword().equals("edwin")){
-               Toast.makeText(Login.this, "mantab", Toast.LENGTH_SHORT).show();
-           }
+            if (validation()){
+                login(user.getEmail(), user.getPassword());
+            }
         }
     };
 
     public View.OnClickListener btnClickHereRegis = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            Intent regis = new Intent(Login.this, Register.class);
+            regis.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(regis);
         }
     };
 
-    private void getID(String email, String password) {
-        class getID extends AsyncTask<Void, Void, Integer> {
+    public boolean validation() {
+        if (user.getEmail().equals("") || user.getPassword().equals("")) {
+            Toast.makeText(Login.this, "Data belum lengkap", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void login(String email, String password) {
+        class login extends AsyncTask<Void, Void, User> {
 
             @Override
-            protected Integer doInBackground(Void... voids) {
-                int id = DatabaseUser.getInstance(getApplicationContext())
+            protected User doInBackground(Void... voids) {
+                User user = DatabaseUser.getInstance(getApplicationContext())
                         .getDatabase()
                         .userDao()
-                        .getId(email, password);
+                        .login(email, password);
 
-                return id;
+                return user;
             }
 
             @Override
-            protected void onPostExecute(Integer id) {
-                super.onPostExecute(id);
-                if (id) { //jika data ditemukan
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+                if (user != null) { //jika data ditemukan
                     // membuat intent
                     Intent mainActivity = new Intent(Login.this, MainActivity.class);
 
                     // memasukan id ke intent
-                    mainActivity.putExtra("id", id);
+                    mainActivity.putExtra("user", user);
                     // bersihin top activity biar ga bisa di back
                     mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(mainActivity);
@@ -78,7 +91,7 @@ public class Login extends AppCompatActivity {
                 }
             }
         }
-        getID get = new getID();
+        login get = new login();
         get.execute();
     }
 }
