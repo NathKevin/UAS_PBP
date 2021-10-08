@@ -10,8 +10,8 @@ import com.example.uts.model.User;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT id FROM user WHERE email = :email AND pass = :password")
-    int getId(String email, String password);
+    @Query("SELECT * FROM user WHERE email = :email AND pass = :password")
+    User login(String email, String password);
 
     @Insert
     void insertUser(User user);

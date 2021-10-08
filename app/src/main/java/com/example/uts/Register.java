@@ -25,15 +25,18 @@ public class Register extends AppCompatActivity {
         user = new User();
         binding.setUser(user);
         binding.setActivity(this);
+
     }
 
     public View.OnClickListener btnSignUp = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!user.getNama().isEmpty() && !user.getNoTelp().isEmpty() && !user.getEmail().isEmpty() &&
-                !user.getPassword().isEmpty() && !user.getConfirmPassword().isEmpty() && 
+            if(!user.getNama().equals("") && !user.getNoTelp().equals("") && !user.getEmail().equals("") &&
+                    !user.getPassword().equals("") && !user.getConfirmPassword().equals("") &&
                     user.getPassword().equals(user.getConfirmPassword())){
                 addUser();
+            } else {
+                Toast.makeText(Register.this, "Data belum lengkap", Toast.LENGTH_SHORT).show();
             }
         }
     };

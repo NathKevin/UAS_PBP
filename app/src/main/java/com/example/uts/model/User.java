@@ -1,5 +1,8 @@
 package com.example.uts.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
@@ -9,23 +12,23 @@ import androidx.room.PrimaryKey;
 import com.example.uts.BR;
 
 @Entity(tableName = "user")
-public class User extends BaseObservable {
+public class User extends BaseObservable implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    public int id;
 
     @ColumnInfo(name = "nama")
-    private String nama;
+    public String nama;
 
     @ColumnInfo(name = "noTelp")
-    private String noTelp;
+    public String noTelp;
 
     @ColumnInfo(name = "email")
-    private String email;
+    public String email;
 
     @ColumnInfo(name = "pass")
-    private String password;
+    public String password;
 
-    private String confirmPassword;
+    public String confirmPassword;
 
     public User() {
     }
@@ -94,4 +97,40 @@ public class User extends BaseObservable {
         this.password = password;
         notifyPropertyChanged(BR.password);
     }
+
+    //  Bagian ini merupakan implementasi dari Parcelable agar kita dapat mengirim data dalam bentuk kelas.
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(nama);
+        parcel.writeString(noTelp);
+        parcel.writeString(email);
+        parcel.writeString(password);
+    }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        nama = in.readString();
+        noTelp = in.readString();
+        email = in.readString();
+        password = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
 }
