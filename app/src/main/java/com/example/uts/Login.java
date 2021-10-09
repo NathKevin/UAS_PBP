@@ -31,6 +31,8 @@ public class Login extends AppCompatActivity implements Serializable {
         user = new User();
         binding.setUser(user);
         binding.setActivity(this);
+        user.setEmail("");
+        user.setPassword("");
 
     }
 

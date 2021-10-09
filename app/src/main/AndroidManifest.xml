@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTS">
         <activity
+            android:name=".deliveryForm"
+            android:exported="true" />
+        <activity
             android:name=".Register"
             android:exported="true" />
         <activity
@@ -21,12 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

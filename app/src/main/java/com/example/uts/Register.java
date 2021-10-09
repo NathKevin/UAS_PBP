@@ -25,7 +25,12 @@ public class Register extends AppCompatActivity {
         user = new User();
         binding.setUser(user);
         binding.setActivity(this);
-
+        user.setPassword("");
+        user.setEmail("");
+        user.setNama("");
+        user.setConfirmPassword("");
+        user.setNoTelp("");
+        user.setUang(0);
     }
 
     public View.OnClickListener btnSignUp = new View.OnClickListener() {

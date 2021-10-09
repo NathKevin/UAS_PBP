@@ -11,6 +11,8 @@ import androidx.room.PrimaryKey;
 
 import com.example.uts.BR;
 
+import java.util.List;
+
 @Entity(tableName = "user")
 public class User extends BaseObservable implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -27,6 +29,10 @@ public class User extends BaseObservable implements Parcelable {
 
     @ColumnInfo(name = "pass")
     public String password;
+
+    @ColumnInfo(name = "uang")
+    public int uang;
+
 
     public String confirmPassword;
 
@@ -98,6 +104,18 @@ public class User extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.password);
     }
 
+    @Bindable
+    public int getUang() {
+        return uang;
+    }
+
+    public void setUang(int uang) {
+
+        this.uang = uang;
+        notifyPropertyChanged(BR.uang);
+    }
+
+
     //  Bagian ini merupakan implementasi dari Parcelable agar kita dapat mengirim data dalam bentuk kelas.
     @Override
     public int describeContents() {
@@ -111,6 +129,7 @@ public class User extends BaseObservable implements Parcelable {
         parcel.writeString(noTelp);
         parcel.writeString(email);
         parcel.writeString(password);
+        parcel.writeInt(uang);
     }
 
     protected User(Parcel in) {
@@ -119,6 +138,7 @@ public class User extends BaseObservable implements Parcelable {
         noTelp = in.readString();
         email = in.readString();
         password = in.readString();
+        uang = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

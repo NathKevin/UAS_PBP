@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="deliver"
+            type="com.example.uts.model.Delivery" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            app:strokeWidth="4dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="#F3F3F3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp">
+
+                <TextView
+                    android:id="@+id/textNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Penerima :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@{deliver.namaPenerima}"
+                    android:hint="Edwin Juan"
+                    app:layout_constraintStart_toEndOf="@id/textNama"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/textTipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipe :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textNama"
+                    app:layout_constraintTop_toBottomOf="@+id/textNama"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiTipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{deliver.tipe}"
+                    android:hint="VGA Gaming"
+                    app:layout_constraintStart_toStartOf="@+id/isiNama"
+                    app:layout_constraintTop_toBottomOf="@+id/isiNama"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/textFragile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fragile :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textTipe"
+                    app:layout_constraintTop_toBottomOf="@+id/textTipe"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiFragile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{deliver.fragile}"
+                    android:hint="YES"
+                    app:layout_constraintStart_toStartOf="@+id/isiTipe"
+                    app:layout_constraintTop_toBottomOf="@+id/isiTipe"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/textAsal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Asal :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textFragile"
+                    app:layout_constraintTop_toBottomOf="@+id/textFragile"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiAsal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{deliver.addPickup}"
+                    android:hint="Perum"
+                    app:layout_constraintStart_toStartOf="@+id/isiFragile"
+                    app:layout_constraintTop_toBottomOf="@+id/isiFragile"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/textTujuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Tujuan :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textAsal"
+                    app:layout_constraintTop_toBottomOf="@+id/textAsal"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiTujuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{deliver.addTujuan}"
+                    android:hint="Lamongan"
+                    app:layout_constraintStart_toStartOf="@+id/isiAsal"
+                    app:layout_constraintTop_toBottomOf="@+id/isiAsal"
+                    android:textSize="17dp"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+</layout>
