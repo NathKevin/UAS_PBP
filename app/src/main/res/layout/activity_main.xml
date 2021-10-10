@@ -153,15 +153,14 @@
             android:textStyle="bold"
             android:textColor="#6437A0"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView"
-            android:layout_width="wrap_content"
-            android:layout_height="385dp"
-            tools:listitem="@layout/recycler_view"
-            app:layout_constraintTop_toBottomOf="@id/judulList"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/layout_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@id/judulList"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
