@@ -6,17 +6,22 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/layout_fragment"
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="675dp" />
+            android:layout_height="670dp">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/layout_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/navbar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_below="@id/layout_fragment"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_navigation"

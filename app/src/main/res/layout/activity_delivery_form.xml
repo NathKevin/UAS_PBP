@@ -112,16 +112,17 @@
                     android:textSize="17dp"/>
 
                 <RadioGroup
+                    android:id="@+id/rg_fragile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:onCheckedChanged="@{activity.checkFragile}"
                     android:layout_marginStart="50dp">
 
                     <RadioButton
                         android:id="@+id/radio_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked"
                         android:text="Yes" />
 
                     <RadioButton
@@ -129,7 +130,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/radio_no"
                         android:text="No"
-                        android:onClick="onRadioButtonClicked"
                         android:layout_marginStart="50dp"/>
 
                 </RadioGroup>
@@ -171,7 +171,7 @@
                         android:lines="3"
                         android:minLines="1"
                         android:gravity="top|left"
-                        android:text="@={}"/>
+                        android:text="@={delivery.addPickup}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -183,19 +183,18 @@
                     android:adjustViewBounds="true"
                     android:maxWidth="50dp"
                     android:maxHeight="50dp"
-                    android:onClick="@={}"
                     android:scaleType="fitCenter"
                     android:src="@drawable/maps_pointer" />
 
                 <TextView
                     android:id="@+id/tv_destinationAddress"
-                    android:layout_below="@id/et_pickupAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup Address"
+                    android:layout_below="@id/et_pickupAddress"
                     android:layout_marginTop="10dp"
+                    android:text="Destination Address"
                     android:textColor="#6437A0"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/et_destinationAddress"
@@ -219,7 +218,7 @@
                         android:lines="3"
                         android:minLines="1"
                         android:gravity="top|left"
-                        android:text="@={}"/>
+                        android:text="@={delivery.addTujuan}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
@@ -231,54 +230,18 @@
                     android:adjustViewBounds="true"
                     android:maxWidth="50dp"
                     android:maxHeight="50dp"
-                    android:onClick="@={}"
                     android:scaleType="fitCenter"
                     android:src="@drawable/maps_pointer" />
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:layout_marginTop="10dp"
-                android:textColor="#6437A0"
-                android:textSize="17dp"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_price"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="#9775C5">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:text="Rp "
-                    android:textColor="@color/white"
-                    android:textSize="17dp"
-                    android:layout_marginStart="20dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:text="12.000"
-                    android:textColor="@color/white"
-                    android:textSize="17dp"
-                    android:layout_marginStart="50dp"/>
-            </androidx.cardview.widget.CardView>
-
             <Button
                 android:layout_width="160dp"
                 android:layout_height="55dp"
-                android:text="Pay"
+                android:text="Book"
                 android:textSize="18dp"
-                android:layout_marginTop="30dp"
-                android:onClick="@{}"
+                android:layout_marginTop="70dp"
+                android:onClick="@{activity.btnBook}"
                 android:backgroundTint="#6437A0"
                 android:layout_gravity="center" />
         </LinearLayout>

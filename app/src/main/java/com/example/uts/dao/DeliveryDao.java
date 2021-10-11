@@ -9,17 +9,19 @@ import androidx.room.Update;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.User;
 
+import java.util.List;
+
 @Dao
 public interface DeliveryDao {
     @Query("SELECT * FROM delivery WHERE idUser = :id")
-    Delivery searchUser(int id);
+    List<Delivery> getAll(int id);
 
     @Insert
-    void insertUser(Delivery delivery);
+    void insertDelivery(Delivery delivery);
 
     @Update
-    void updateUser(Delivery delivery);
+    void updateDelivery(Delivery delivery);
 
     @Delete
-    void deleteUser(Delivery delivery);
+    void deleteDelivery(Delivery delivery);
 }

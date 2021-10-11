@@ -4,6 +4,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -15,7 +16,7 @@ import androidx.room.PrimaryKey;
                     childColumns = "idDelivery",
                     onDelete = CASCADE))
 
-public class Delivery extends BaseObservable{
+public class Delivery extends BaseObservable {
     @PrimaryKey(autoGenerate = true)
     public int idDelivery;
 
@@ -47,6 +48,7 @@ public class Delivery extends BaseObservable{
     }
     public void setNamaPenerima(String namaPenerima) {
         this.namaPenerima = namaPenerima;
+        notifyPropertyChanged(BR.namaPenerima);
     }
 
     @Bindable
@@ -55,14 +57,16 @@ public class Delivery extends BaseObservable{
     }
     public void setTipe(String tipe) {
         this.tipe = tipe;
+        notifyPropertyChanged(BR.tipe);
     }
 
     @Bindable
-    public String isFragile() {
+    public String getFragile() {
         return fragile;
     }
     public void setFragile(String fragile) {
         this.fragile = fragile;
+        notifyPropertyChanged(BR.fragile);
     }
 
     @Bindable
@@ -71,6 +75,7 @@ public class Delivery extends BaseObservable{
     }
     public void setAddPickup(String addPickup) {
         this.addPickup = addPickup;
+        notifyPropertyChanged(BR.addPickup);
     }
 
     @Bindable
@@ -79,6 +84,7 @@ public class Delivery extends BaseObservable{
     }
     public void setAddTujuan(String addTujuan) {
         this.addTujuan = addTujuan;
+        notifyPropertyChanged(BR.addTujuan);
     }
 
     @Bindable
@@ -87,5 +93,6 @@ public class Delivery extends BaseObservable{
     }
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+        notifyPropertyChanged(BR.idUser);
     }
 }

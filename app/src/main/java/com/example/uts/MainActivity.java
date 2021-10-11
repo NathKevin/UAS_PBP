@@ -13,31 +13,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     //Ambil data user yang ada di login
-    User user = getIntent().getParcelableExtra("user");
+    User user;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        user = getIntent().getParcelableExtra("user");
 
+        bottomNav = findViewById(R.id.bottom_navigation);
         changeFragment(new FragmentHome(user));
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemReselectedListener((BottomNavigationView.OnNavigationItemReselectedListener) navListener);
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    if(item.getItemId() == R.id.home){
-                        changeFragment(new FragmentHome(user));
-                    }else if(item.getItemId() == R.id.profile){
-                        changeFragment(new FragmentProfile());
-                    }
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.home){
+                    changeFragment(new FragmentHome(user));
+                    return true;
+                }else if(item.getItemId() == R.id.profile){
+                    changeFragment(new FragmentProfile());
                     return true;
                 }
-            };
+                return false;
+            }
+        });
+    }
 
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager()

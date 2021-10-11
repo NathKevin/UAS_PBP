@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Nama Penerima :"
+                    android:text="Recipient Name :"
                     android:textSize="17dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,18 +46,17 @@
                     android:id="@+id/isiNama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:hint="Edwin Juan"
                     android:text="@{deliver.namaPenerima}"
                     android:textSize="17dp"
-                    app:layout_constraintStart_toEndOf="@id/textNama"
+                    app:layout_constraintStart_toStartOf="@id/isiTujuan"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textTipe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tipe :"
+                    android:text="Type :"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textNama"
                     app:layout_constraintTop_toBottomOf="@+id/textNama"
@@ -69,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{deliver.tipe}"
                     android:hint="VGA Gaming"
-                    app:layout_constraintStart_toStartOf="@+id/isiNama"
+                    app:layout_constraintStart_toStartOf="@+id/isiTujuan"
                     app:layout_constraintTop_toBottomOf="@+id/isiNama"
                     android:textSize="17dp"/>
 
@@ -89,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{deliver.fragile}"
                     android:hint="YES"
-                    app:layout_constraintStart_toStartOf="@+id/isiTipe"
+                    app:layout_constraintStart_toStartOf="@+id/isiTujuan"
                     app:layout_constraintTop_toBottomOf="@+id/isiTipe"
                     android:textSize="17dp"/>
 
@@ -97,7 +96,7 @@
                     android:id="@+id/textAsal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Asal :"
+                    android:text="Pickup Address :"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textFragile"
                     app:layout_constraintTop_toBottomOf="@+id/textFragile"
@@ -109,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{deliver.addPickup}"
                     android:hint="Perum"
-                    app:layout_constraintStart_toStartOf="@+id/isiFragile"
+                    app:layout_constraintStart_toStartOf="@+id/isiTujuan"
                     app:layout_constraintTop_toBottomOf="@+id/isiFragile"
                     android:textSize="17dp"/>
 
@@ -117,7 +116,7 @@
                     android:id="@+id/textTujuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Tujuan :"
+                    android:text="Destination Address :"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textAsal"
                     app:layout_constraintTop_toBottomOf="@+id/textAsal"
@@ -127,11 +126,12 @@
                     android:id="@+id/isiTujuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{deliver.addTujuan}"
                     android:hint="Lamongan"
-                    app:layout_constraintStart_toStartOf="@+id/isiAsal"
+                    android:text="@{deliver.addTujuan}"
+                    android:textSize="17dp"
+                    app:layout_constraintStart_toEndOf="@id/textTujuan"
                     app:layout_constraintTop_toBottomOf="@+id/isiAsal"
-                    android:textSize="17dp"/>
+                    tools:layout_editor_absoluteX="190dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
