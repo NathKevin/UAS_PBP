@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTS">
         <activity
-            android:name=".deliveryForm"
+            android:name=".DeliveryForm"
             android:exported="true" />
         <activity
             android:name=".Register"

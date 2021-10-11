@@ -27,27 +27,31 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp">
+                android:layout_margin="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/textNama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="Nama Penerima :"
+                    android:textSize="17dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="17dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/isiNama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@{deliver.namaPenerima}"
                     android:hint="Edwin Juan"
+                    android:text="@{deliver.namaPenerima}"
+                    android:textSize="17dp"
                     app:layout_constraintStart_toEndOf="@id/textNama"
-                    android:textSize="17dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textTipe"
