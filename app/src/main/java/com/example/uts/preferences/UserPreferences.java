@@ -10,6 +10,7 @@ public class UserPreferences {
     SharedPreferences.Editor editor;
     Context context;
 
+
     // Mendefinisikan Key
     public static final String IS_LOGIN = "isLogin";
     public static final String KEY_USERNAME = "username";
@@ -32,12 +33,12 @@ public class UserPreferences {
 
     public User getUserLogin() {
         // Mengembalikan object User untuk menampilkan data user jika user sudah login
-        String username, password;
+        String email, password;
 
-        username = sharedPreferences.getString(KEY_USERNAME, null);
+        email = sharedPreferences.getString(KEY_USERNAME, null);
         password = sharedPreferences.getString(KEY_PASSWORD, null);
 
-        return new User(/*username, password*/);
+        return new User(email, password);
     }
 
     public boolean checkLogin() {

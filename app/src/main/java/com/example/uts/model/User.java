@@ -39,6 +39,11 @@ public class User extends BaseObservable implements Parcelable {
     public User() {
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     @Bindable
     public String getConfirmPassword() {
         return confirmPassword;

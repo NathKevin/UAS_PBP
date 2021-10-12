@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTS">
         <activity
-            android:name=".DeliveryForm"
-            android:exported="true" />
-        <activity
-            android:name=".Register"
-            android:exported="true" />
-        <activity
             android:name=".Login"
             android:exported="true">
             <intent-filter>
@@ -27,6 +21,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"></activity>
+        <activity
+            android:name=".DeliveryForm"
+            android:exported="true" />
+        <activity
+            android:name=".Register"
+            android:exported="true" />
     </application>
 
 </manifest>

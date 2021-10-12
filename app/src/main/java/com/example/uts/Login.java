@@ -3,6 +3,7 @@ package com.example.uts;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,11 +22,13 @@ public class Login extends AppCompatActivity implements Serializable {
     User user;
     ActivityLoginBinding binding;
     private UserPreferences userPreferences;
+    private Intent mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        userPreferences = new UserPreferences(Login.this);
 
         // Inisialisasi Objek dan Variabel
         user = new User();
@@ -34,6 +37,7 @@ public class Login extends AppCompatActivity implements Serializable {
         user.setEmail("");
         user.setPassword("");
 
+        checkLogin();
     }
 
     //Response click listener buat button login
@@ -80,14 +84,15 @@ public class Login extends AppCompatActivity implements Serializable {
             protected void onPostExecute(User user) {
                 super.onPostExecute(user);
                 if (user != null) { //jika data ditemukan
+                    mainActivity = new Intent(Login.this, MainActivity.class);
                     // membuat intent
-                    Intent mainActivity = new Intent(Login.this, MainActivity.class);
-
+                    userPreferences.setLogin(user.getEmail(),user.getPassword());
                     // memasukan id ke intent
                     mainActivity.putExtra("user", user);
                     // bersihin top activity biar ga bisa di back
                     mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(mainActivity);
+                    finish();
                 } else {
                     Toast.makeText(Login.this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
                 }
@@ -95,5 +100,13 @@ public class Login extends AppCompatActivity implements Serializable {
         }
         login get = new login();
         get.execute();
+    }
+
+    private void checkLogin() {
+        User userLogin= userPreferences.getUserLogin();
+        if (userPreferences.checkLogin()) {
+            login(userLogin.email,userLogin.password);
+            finish();
+        }
     }
 }
