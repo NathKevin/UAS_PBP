@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uts.adapter.DeliveryAdapter;
@@ -20,6 +21,7 @@ import com.example.uts.databinding.FragmentHomeBinding;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentHome extends Fragment {
@@ -52,7 +54,13 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        rv_delivery = view.findViewById(R.id.rv_deliveryList);
+        rv_delivery.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         getDelivery();
+
+        deliveryList = new ArrayList<>();
     }
 
     public View.OnClickListener btnCreate = new View.OnClickListener() {

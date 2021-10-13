@@ -42,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.home){
                     changeFragment(new FragmentHome(user));
-                    return true;
                 }else if(item.getItemId() == R.id.profile){
                     changeFragment(new FragmentProfile());
-                    return true;
                 }
-                return false;
+                return true;
             }
         });
     }

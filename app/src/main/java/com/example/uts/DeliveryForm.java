@@ -1,6 +1,7 @@
 package com.example.uts;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.uts.database.DatabaseDelivery;
 import com.example.uts.databinding.ActivityDeliveryFormBinding;
-import com.example.uts.databinding.ActivityLoginBinding;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.User;
 
@@ -19,13 +19,13 @@ public class DeliveryForm extends AppCompatActivity {
 
     Delivery delivery;
     ActivityDeliveryFormBinding binding;
-    //Ambil data user yang ada dari fragmentHome,Mainactivity,Login
     User user;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery_form);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_delivery_form);
+        //Ambil data user yang ada dari fragmentHome,Mainactivity,Login
         user = getIntent().getParcelableExtra("user2");
 
         delivery = new Delivery();
