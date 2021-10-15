@@ -44,10 +44,11 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //binding layout fragment_home xml ke FragmentHome.java
-        binding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_home);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container,false);
+        View view = binding.getRoot();
         binding.setUser(user);
         binding.setFragment(this);
-        return inflater.inflate(R.layout.fragment_home,container,false);
+        return view;
     }
 
 

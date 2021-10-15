@@ -40,7 +40,9 @@ public class Register extends AppCompatActivity {
                     !user.getPassword().equals("") && !user.getConfirmPassword().equals("") &&
                     user.getPassword().equals(user.getConfirmPassword())){
                 addUser();
-            } else {
+            }else if(!user.getPassword().equals(user.getConfirmPassword())) {
+                Toast.makeText(Register.this, "Confirm password salah", Toast.LENGTH_SHORT).show();
+            }else {
                 Toast.makeText(Register.this, "Data belum lengkap", Toast.LENGTH_SHORT).show();
             }
         }

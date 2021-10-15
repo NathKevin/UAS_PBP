@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Ambil data user yang ada di login
     User user;
-    BottomNavigationView bottomNav;
     private UserPreferences userPreferences;
 
     @Override
@@ -34,22 +34,23 @@ public class MainActivity extends AppCompatActivity {
         userPreferences = new UserPreferences(MainActivity.this);
         user = getIntent().getParcelableExtra("user");
 
-        bottomNav = findViewById(R.id.bottom_navigation);
         changeFragment(new FragmentHome(user));
-
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.home){
-                    changeFragment(new FragmentHome(user));
-                }else if(item.getItemId() == R.id.profile){
-                    changeFragment(new FragmentProfile());
-                }
-                return true;
-            }
-        });
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navlistener);
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener navlistener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            if(item.getItemId() == R.id.home){
+                changeFragment(new FragmentHome(user));
+            }else if(item.getItemId() == R.id.profile){
+                changeFragment(new FragmentProfile(user));
+            }
+            return true;
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.layout_fragment,fragment)
+                .replace(R.id.fragment_layout,fragment)
                 .commit();
     }
 
