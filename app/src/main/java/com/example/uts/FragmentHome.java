@@ -60,8 +60,6 @@ public class FragmentHome extends Fragment {
         rv_delivery.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         getDelivery();
-
-        deliveryList = new ArrayList<>();
     }
 
     public View.OnClickListener btnCreate = new View.OnClickListener() {
@@ -69,7 +67,6 @@ public class FragmentHome extends Fragment {
         public void onClick(View view) {
             Intent movePage = new Intent(getActivity(), DeliveryForm.class);
             movePage.putExtra("user2",user);
-            movePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(movePage);
         }
     };

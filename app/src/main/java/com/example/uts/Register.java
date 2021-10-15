@@ -40,6 +40,9 @@ public class Register extends AppCompatActivity {
                     !user.getPassword().equals("") && !user.getConfirmPassword().equals("") &&
                     user.getPassword().equals(user.getConfirmPassword())){
                 addUser();
+                Intent movePage = new Intent(Register.this, Login.class);
+                movePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(movePage);
             }else if(!user.getPassword().equals(user.getConfirmPassword())) {
                 Toast.makeText(Register.this, "Confirm password salah", Toast.LENGTH_SHORT).show();
             }else {

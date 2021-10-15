@@ -3,6 +3,7 @@ package com.example.uts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.example.uts.model.User;
 
 public class DeliveryForm extends AppCompatActivity {
 
+    private RadioButton radioButton;
+    private RadioGroup radioGroup;
     Delivery delivery;
     ActivityDeliveryFormBinding binding;
     User user;
@@ -32,6 +35,7 @@ public class DeliveryForm extends AppCompatActivity {
         binding.setDelivery(delivery);
         binding.setActivity(this);
 
+        radioGroup = findViewById(R.id.rg_fragile);
         delivery.setAddPickup("");
         delivery.setAddTujuan("");
         delivery.setFragile("");
@@ -41,22 +45,29 @@ public class DeliveryForm extends AppCompatActivity {
 
     }
 
-    public void checkFragile(RadioGroup RG, int id){
-        if(id==1){
-            delivery.setFragile("YES");
-        }else{
-            delivery.setFragile("NO");
+    public void checkFragile(){
+        int radioID = radioGroup.getCheckedRadioButtonId();
+
+        if (radioID == -1) {
+            delivery.setFragile("");
+        } else {
+            radioButton = findViewById(radioID);
+            delivery.setFragile(radioButton.getText().toString());
         }
     }
 
     public View.OnClickListener btnBook = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            checkFragile();
             if(!delivery.getNamaPenerima().equals("") && !delivery.getTipe().equals("")
                 && !delivery.getAddPickup().equals("") && !delivery.getAddTujuan().equals("")
                 && !delivery.getFragile().equals("")){
                 bookDelivery();
-                finish();
+                Intent balik = new Intent(DeliveryForm.this, MainActivity.class);
+                balik.putExtra("user", user);
+                balik.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(balik);
             }else{
                 Toast.makeText(DeliveryForm.this, "Data belum lengkap", Toast.LENGTH_SHORT).show();
             }
@@ -86,6 +97,7 @@ public class DeliveryForm extends AppCompatActivity {
                 delivery.setIdUser(0);
                 delivery.setNamaPenerima("");
                 delivery.setTipe("");
+                Toast.makeText(DeliveryForm.this, "Booking Berhasil", Toast.LENGTH_SHORT).show();
             }
         }
         BookDelivery bookDelivery = new BookDelivery();

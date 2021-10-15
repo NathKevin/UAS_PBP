@@ -10,11 +10,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "delivery",
-        foreignKeys = @ForeignKey(entity = User.class,
-                    parentColumns = "id",
-                    childColumns = "idDelivery",
-                    onDelete = CASCADE))
+@Entity(tableName = "delivery")
 
 public class Delivery extends BaseObservable {
     @PrimaryKey(autoGenerate = true)

@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@{delivery.namaPenerima}"/>
+                    android:text="@={delivery.namaPenerima}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@{delivery.tipe}"/>
+                    android:text="@={delivery.tipe}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -116,7 +116,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:onCheckedChanged="@{activity.checkFragile}"
                     android:layout_marginStart="50dp">
 
                     <RadioButton
@@ -171,7 +170,7 @@
                         android:lines="3"
                         android:minLines="1"
                         android:gravity="top|left"
-                        android:text="@{delivery.addPickup}"/>
+                        android:text="@={delivery.addPickup}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -218,7 +217,7 @@
                         android:lines="3"
                         android:minLines="1"
                         android:gravity="top|left"
-                        android:text="@{delivery.addTujuan}"/>
+                        android:text="@={delivery.addTujuan}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
