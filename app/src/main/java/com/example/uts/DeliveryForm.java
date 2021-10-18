@@ -1,8 +1,13 @@
 package com.example.uts;
 
+import static com.example.uts.notification.AppChannel.CHANNEL_1_ID;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +23,7 @@ import com.example.uts.model.User;
 
 public class DeliveryForm extends AppCompatActivity {
 
+    private NotificationManagerCompat notificationManager;
     private RadioButton radioButton;
     private RadioGroup radioGroup;
     Delivery delivery;
@@ -43,6 +49,8 @@ public class DeliveryForm extends AppCompatActivity {
         delivery.setNamaPenerima("");
         delivery.setTipe("");
 
+        notificationManager = NotificationManagerCompat.from(this);
+
     }
 
     public void checkFragile(){
@@ -64,6 +72,7 @@ public class DeliveryForm extends AppCompatActivity {
                 && !delivery.getAddPickup().equals("") && !delivery.getAddTujuan().equals("")
                 && !delivery.getFragile().equals("")){
                 bookDelivery();
+                sendOnChannel1(view);
                 Intent balik = new Intent(DeliveryForm.this, MainActivity.class);
                 balik.putExtra("user", user);
                 balik.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -102,6 +111,17 @@ public class DeliveryForm extends AppCompatActivity {
         }
         BookDelivery bookDelivery = new BookDelivery();
         bookDelivery.execute();
+    }
+
+    public void sendOnChannel1(View v){
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.freeway)
+                .setContentTitle("Freeway")
+                .setContentText("Delivery has been booked")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        notificationManager.notify(1,notification);
     }
 
 }

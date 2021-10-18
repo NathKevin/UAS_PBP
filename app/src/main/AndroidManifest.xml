@@ -3,6 +3,7 @@
     package="com.example.uts">
 
     <application
+        android:name=".notification.AppChannel"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTS">
         <activity
-            android:name=".Login"
+            android:name=".Splashscreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +20,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Login"
+            android:exported="true"/>
+        <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".DeliveryForm"
             android:exported="true" />
