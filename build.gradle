@@ -3,6 +3,17 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven{
+            url 'https://api.mapbox.com/downloads/v2/releases/mavem'
+            authentication{basic(BasicAuthentication)}
+            credentials{
+                //Do not change the username below
+                //This should always be 'mapbox' (not your username)
+                username = 'mapbox'
+                //Use the secret token you stored in gradle.properties as the password
+                password = "sk.eyJ1IjoibmF0aGtldmluIiwiYSI6ImNrdW1hOW05MjFwaDkycW42NDk2MHVncDcifQ.Mr3z_3CYY5GFSZbv_yLFqw"
+            }
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"

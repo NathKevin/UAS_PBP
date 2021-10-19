@@ -174,12 +174,15 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/ib_maps_pickup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/et_pickupAddress"
                     android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:maxWidth="50dp"
                     android:maxHeight="50dp"
                     android:onClick="btnMapPickup"
@@ -221,16 +224,19 @@
                         android:text="@={delivery.addTujuan}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/ib_maps_destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_pickupAddress"
                     android:layout_toEndOf="@id/et_destinationAddress"
                     android:adjustViewBounds="true"
+                    android:background="@null"
                     android:maxWidth="50dp"
                     android:maxHeight="50dp"
-                    android:onClick="btnMapdestination"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="btnMapDestination"
                     android:scaleType="fitCenter"
                     android:src="@drawable/maps_pointer" />
 

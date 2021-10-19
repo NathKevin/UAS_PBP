@@ -2,6 +2,7 @@ package com.example.uts;
 
 import static com.example.uts.notification.AppChannel.CHANNEL_1_ID;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -26,9 +28,12 @@ public class DeliveryForm extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
     private RadioButton radioButton;
     private RadioGroup radioGroup;
+    private ImageButton btnMapPickup;
+    private ImageButton btnMapDestination;
     Delivery delivery;
     ActivityDeliveryFormBinding binding;
     User user;
+    String addressPickup, addressDestination;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -50,7 +55,42 @@ public class DeliveryForm extends AppCompatActivity {
         delivery.setTipe("");
 
         notificationManager = NotificationManagerCompat.from(this);
+        btnMapPickup = findViewById(R.id.ib_maps_pickup);
+        btnMapDestination = findViewById(R.id.ib_maps_destination);
 
+        btnMapPickup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveMap = new Intent(DeliveryForm.this, Geolocation.class);
+                startActivityForResult(moveMap,1);
+            }
+        });
+
+        btnMapDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveMap = new Intent(DeliveryForm.this, Geolocation.class);
+                startActivityForResult(moveMap,2);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                addressPickup = data.getStringExtra("address");
+                delivery.setAddPickup(addressPickup);
+
+            }
+        }else if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                addressDestination = data.getStringExtra("address");
+                delivery.setAddTujuan(addressDestination);
+            }
+        }
     }
 
     public void checkFragile(){
