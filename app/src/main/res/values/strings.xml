@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UTS</string>
+    <string name="app_name">FREEWAY</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mapbox_access_token">pk.eyJ1IjoibmF0aGtldmluIiwiYSI6ImNrdW1hNHFsMDNwZnQyb256dW42amhpY2IifQ.g1EdU5xWKI1Vbozov7Pb-w</string>

@@ -38,6 +38,7 @@ public class FragmentProfile extends Fragment {
         View view = binding.getRoot();
         binding.setUser(user);
         binding.setFragment(this);
+        user.setConfirmPassword("");
         return view;
     }
 
@@ -53,6 +54,7 @@ public class FragmentProfile extends Fragment {
                         !user.getPassword().equals("") && !user.getConfirmPassword().equals("")
                          && user.getPassword().equals(user.getConfirmPassword())){
                     updateUser();
+                    user.setConfirmPassword("");
                 }else if(!user.getPassword().equals(user.getConfirmPassword())){
                     Toast.makeText(getActivity(), "Confirm password salah", Toast.LENGTH_SHORT).show();
                 }else {
