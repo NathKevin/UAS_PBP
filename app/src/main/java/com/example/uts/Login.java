@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -14,6 +15,11 @@ import com.example.uts.database.DatabaseUser;
 import com.example.uts.model.User;
 import com.example.uts.preferences.UserPreferences;
 import com.example.uts.databinding.ActivityLoginBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
 
@@ -23,6 +29,8 @@ public class Login extends AppCompatActivity implements Serializable {
     ActivityLoginBinding binding;
     private UserPreferences userPreferences;
     private Intent mainActivity;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +45,7 @@ public class Login extends AppCompatActivity implements Serializable {
         user.setEmail("");
         user.setPassword("");
 
+        mAuth = FirebaseAuth.getInstance();
         checkLogin();
     }
 
@@ -45,7 +54,20 @@ public class Login extends AppCompatActivity implements Serializable {
         @Override
         public void onClick(View view) {
             if (validation()){
-                login(user.getEmail(), user.getPassword());
+                mAuth.signInWithEmailAndPassword(user.email,user.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            if(mAuth.getCurrentUser().isEmailVerified()){
+                                login(user.getEmail(), user.getPassword());
+                            }else{
+                                Toast.makeText(Login.this,"Verify Email First", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(Login.this,"Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }
     };

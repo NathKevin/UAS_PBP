@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -133,6 +134,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/isiAsal"
                     tools:layout_editor_absoluteX="190dp" />
 
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="10dp"
+                    app:tint="#DC3939" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

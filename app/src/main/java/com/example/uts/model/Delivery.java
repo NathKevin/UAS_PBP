@@ -1,41 +1,60 @@
 package com.example.uts.model;
 
-import static androidx.room.ForeignKey.CASCADE;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "delivery")
 
 public class Delivery extends BaseObservable {
     @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
     public int idDelivery;
 
     @ColumnInfo(name = "namaPenerima")
+    @SerializedName("recipientName")
     private String namaPenerima;
 
     @ColumnInfo(name = "tipe")
+    @SerializedName("type")
     private String tipe;
 
     @ColumnInfo(name = "fragile")
+    @SerializedName("fragile")
     private String fragile;
 
     @ColumnInfo(name = "addPickup")
+    @SerializedName("pickupAddress")
     private String addPickup;
 
     @ColumnInfo(name = "addTujuan")
+    @SerializedName("destinationAddress")
     private String addTujuan;
 
     @ColumnInfo(name = "idUser")
+    @SerializedName("user_id")
     private int idUser;
+
+    @SerializedName("pengantar_id")
+    private int idPengantar;
 
     public Delivery() {
 
+    }
+
+    public Delivery(String namaPenerima, String tipe, String fragile, String addPickup, String addTujuan, int idUser, int idPengantar) {
+        this.namaPenerima = namaPenerima;
+        this.tipe = tipe;
+        this.fragile = fragile;
+        this.addPickup = addPickup;
+        this.addTujuan = addTujuan;
+        this.idUser = idUser;
+        this.idPengantar = idPengantar;
     }
 
     @Bindable
@@ -83,12 +102,24 @@ public class Delivery extends BaseObservable {
         notifyPropertyChanged(BR.addTujuan);
     }
 
-    @Bindable
     public int getIdUser() {
         return idUser;
     }
     public void setIdUser(int idUser) {
         this.idUser = idUser;
-        notifyPropertyChanged(BR.idUser);
+    }
+
+    public int getIdPengantar() {
+        return idPengantar;
+    }
+    public void setIdPengantar(int idPengantar) {
+        this.idPengantar = idPengantar;
+    }
+
+    public int getIdDelivery() {
+        return idDelivery;
+    }
+    public void setIdDelivery(int idDelivery) {
+        this.idDelivery = idDelivery;
     }
 }

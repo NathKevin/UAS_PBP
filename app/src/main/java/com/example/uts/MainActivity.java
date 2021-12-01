@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int LAUNCH_ADD_ACTIVITY = 123;
     //Ambil data user yang ada di login
     User user;
     private UserPreferences userPreferences;
@@ -95,4 +96,5 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
     }
+
 }
