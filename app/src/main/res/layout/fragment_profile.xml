@@ -28,12 +28,25 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/ic_baseline_person_pin_24" />
+                    android:id="@+id/iv_gambar"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:src="@drawable/ic_baseline_person_pin_24"/>
+
+<!--                <de.hdodenhof.circleimageview.CircleImageView -->
+<!--                    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--                    android:id="@+id/iv_gambar"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginLeft="30dp"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                    android:src="@drawable/ic_baseline_person_pin_24"-->
+<!--                    app:civ_border_color="#FF000000"-->
+<!--                    app:civ_border_width="2dp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,11 +54,11 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="40dp"
-                    android:layout_toEndOf="@id/icon"
+                    android:layout_toEndOf="@id/iv_gambar"
                     android:fontFamily="sans-serif-medium"
+                    android:hint="Edwin Ganteng"
                     android:padding="4dp"
                     android:text="@={user.nama}"
-                    android:hint="Edwin Ganteng"
                     android:textColor="#6437A0"
                     android:textSize="28dp"
                     android:textStyle="bold" />
@@ -54,7 +67,7 @@
                     android:id="@+id/linear_layout"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/icon"
+                    android:layout_below="@id/iv_gambar"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="50dp"
@@ -114,60 +127,7 @@
                             android:text="@={user.noTelp}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textColor="#6437A0"
-                        android:textSize="17dp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:outlineSpotShadowColor="@color/black"
-                        app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxStrokeColor="#6437A0"
-                        app:boxStrokeWidth="3dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:text="@={user.email}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="Password"
-                        android:textColor="#6437A0"
-                        android:textSize="17dp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:outlineSpotShadowColor="@color/black"
-                        app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxStrokeColor="#6437A0"
-                        app:boxStrokeWidth="3dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:text="@={user.password}" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:layout_width="wrap_content"

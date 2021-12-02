@@ -33,6 +33,18 @@ public class User extends BaseObservable implements Parcelable {
     @ColumnInfo(name = "uang")
     public int uang;
 
+    @ColumnInfo(name = "gambar")
+    public String gambar;
+
+//    @Bindable
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
+//        notifyPropertyChanged(BR.gambar);
+    }
 
     public String confirmPassword;
 
@@ -135,6 +147,7 @@ public class User extends BaseObservable implements Parcelable {
         parcel.writeString(email);
         parcel.writeString(password);
         parcel.writeInt(uang);
+        parcel.writeString(gambar);
     }
 
     protected User(Parcel in) {
@@ -144,6 +157,7 @@ public class User extends BaseObservable implements Parcelable {
         email = in.readString();
         password = in.readString();
         uang = in.readInt();
+        gambar = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
