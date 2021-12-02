@@ -1,5 +1,6 @@
 package com.example.uts;
 
+import static androidx.databinding.library.baseAdapters.BR.user1;
 import static com.android.volley.Request.Method.GET;
 
 import android.content.Intent;
@@ -43,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentHome extends Fragment {
 
     private RecyclerView rv_delivery;
@@ -53,6 +56,7 @@ public class FragmentHome extends Fragment {
     int id;
     FragmentHomeBinding binding;
     private RequestQueue queue;
+    CircleImageView ivGambar;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -68,7 +72,7 @@ public class FragmentHome extends Fragment {
         //binding layout fragment_home xml ke FragmentHome.java
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container,false);
         View view = binding.getRoot();
-        binding.setUser(user);
+        binding.setUser1(user);
         binding.setFragment(this);
         queue = Volley.newRequestQueue(getContext());
         return view;
@@ -78,6 +82,10 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ivGambar = view.findViewById(R.id.icon);
+        if(user.getGambar()!=null){
+            ivGambar.setImageBitmap(DataConverter.convertByteArray2Image(user.getGambar()));
+        }
 
         rv_delivery = view.findViewById(R.id.rv_deliveryList);
         rv_delivery.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -117,9 +125,8 @@ public class FragmentHome extends Fragment {
                     Toast.makeText(getActivity(),
                             errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-//                    Toast.makeText(getActivity(), e.getMessage(),
-//                            Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), "EROR DISINI", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }) {
@@ -133,29 +140,35 @@ public class FragmentHome extends Fragment {
         queue.add(stringRequest);
     }
 
-//    private void getDelivery(){
-//        class GetDelivery extends AsyncTask<Void, Void, List<Delivery>> {
-//
-//            @Override
-//            protected List<Delivery> doInBackground(Void... voids) {
-//                List<Delivery> deliveryList = DatabaseDelivery.getInstance(getActivity().getApplicationContext())
-//                        .getDatabase()
-//                        .deliveryDao()
-//                        .getAll(user.id);
-//                return deliveryList;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(List<Delivery> deliveries) {
-//                super.onPostExecute(deliveries);
-//                if(!(deliveries.size() ==0)){
-//                    deliveryAdapter = new DeliveryAdapter(deliveries, getActivity());
-//                    rv_delivery.setAdapter(deliveryAdapter);
-//                }
-//            }
-//        }
-//        GetDelivery getDelivery = new GetDelivery();
-//        getDelivery.execute();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getUser();
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+
+    private void getUser(){
+        class GetUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+                User newUser = DatabaseDelivery.getInstance(getActivity().getApplicationContext())
+                        .getDatabase()
+                        .userDao()
+                        .getNew(user.getEmail());
+                return newUser;
+            }
+
+            @Override
+            protected void onPostExecute(User users) {
+                super.onPostExecute(users);
+                if(!(users == null)){
+                    user = users;
+                }
+            }
+        }
+        GetUser getUser = new GetUser();
+        getUser.execute();
+    }
 
 }

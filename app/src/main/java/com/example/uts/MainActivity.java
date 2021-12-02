@@ -1,6 +1,7 @@
 package com.example.uts;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int LAUNCH_ADD_ACTIVITY = 123;
     //Ambil data user yang ada di login
-    User user;
+    User user, temp;
     private UserPreferences userPreferences;
+    BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         userPreferences = new UserPreferences(MainActivity.this);
-        user = getIntent().getParcelableExtra("user");
+        navigation = findViewById(R.id.bottom_navigation);
+//        user = getIntent().getParcelableExtra("user");
+        temp = getIntent().getParcelableExtra("user");
 
-        changeFragment(new FragmentHome(user));
+        // menentukan tampilan fragment awal
+        if (temp.nama.equals("admin")) {
+            navigation.setVisibility(View.GONE);
+            changeFragment(new FragmentPengantar(temp));
+        } else {
+            changeFragment(new FragmentHome(temp));
+        }
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navlistener);
     }
@@ -45,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if(item.getItemId() == R.id.home){
-                changeFragment(new FragmentHome(user));
+//                user = temp;
+                changeFragment(new FragmentHome(temp));
             }else if(item.getItemId() == R.id.profile){
-                changeFragment(new FragmentProfile(user));
+//                user = temp;
+                changeFragment(new FragmentProfile(temp));
             }
             return true;
         }
@@ -86,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_layout,fragment)
+                .detach(fragment)
+                .attach(fragment)
                 .commit();
     }
 

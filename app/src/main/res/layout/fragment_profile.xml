@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="user"
+            name="user2"
             type="com.example.uts.model.User" />
         <variable
             name="fragment"
@@ -27,26 +27,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_gambar"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="30dp"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_person_pin_24"/>
 
-<!--                <de.hdodenhof.circleimageview.CircleImageView -->
-<!--                    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--                    android:id="@+id/iv_gambar"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="80dp"-->
-<!--                    android:layout_marginLeft="30dp"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:foreground="?android:attr/selectableItemBackground"-->
-<!--                    android:src="@drawable/ic_baseline_person_pin_24"-->
-<!--                    app:civ_border_color="#FF000000"-->
-<!--                    app:civ_border_width="2dp" />-->
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/iv_gambar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_person_pin_24"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,9 +47,9 @@
                     android:layout_marginTop="40dp"
                     android:layout_toEndOf="@id/iv_gambar"
                     android:fontFamily="sans-serif-medium"
-                    android:hint="Edwin Ganteng"
+                    android:hint="Input nama"
                     android:padding="4dp"
-                    android:text="@={user.nama}"
+                    android:text="@={user2.nama}"
                     android:textColor="#6437A0"
                     android:textSize="28dp"
                     android:textStyle="bold" />
@@ -97,7 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:text="@={user.nama}" />
+                            android:text="@={user2.nama}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -124,7 +115,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:text="@={user.noTelp}" />
+                            android:text="@={user2.noTelp}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -154,7 +145,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:text="@={user.confirmPassword}" />
+                            android:text="@={user2.confirmPassword}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>

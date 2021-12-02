@@ -21,8 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            app:strokeWidth="4dp"
+            app:strokeWidth="3dp"
+            app:strokeColor="@color/purple_500"
             app:cardElevation="5dp"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="10dp"
             app:cardBackgroundColor="#F3F3F3">
 
             <androidx.constraintlayout.widget.ConstraintLayout

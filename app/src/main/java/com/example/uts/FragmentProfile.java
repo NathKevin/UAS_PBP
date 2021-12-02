@@ -38,6 +38,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.uts.api.DeliveryAPI;
+import com.example.uts.database.DatabaseDelivery;
 import com.example.uts.database.DatabaseUser;
 import com.example.uts.databinding.FragmentProfileBinding;
 import com.example.uts.model.Delivery;
@@ -61,11 +62,11 @@ public class FragmentProfile extends Fragment {
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_PICTURE = 1;
 
-    User user;
+    User user, temp;
     FragmentProfileBinding binding;
-    ImageView ivGambar;
-//    CircleImageView ivGambar;
+    CircleImageView ivGambar;
     private Bitmap bitmap = null;
+    private Bitmap bitmap2 = null;
     private RequestQueue queue;
 
     public FragmentProfile(){
@@ -81,7 +82,8 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         View view = binding.getRoot();
-        binding.setUser(user);
+        binding.setUser2(user);
+        temp = user;
         binding.setFragment(this);
         user.setConfirmPassword("");
 
@@ -94,27 +96,25 @@ public class FragmentProfile extends Fragment {
         Button btnSave = view.findViewById(R.id.btnSave);
         ivGambar = view.findViewById(R.id.iv_gambar);
         if(user.getGambar()!=null){
-            Glide.with(getContext())
-                    .load(user.getGambar())
-                    .into(ivGambar);
-            Toast.makeText(getActivity(), user.getGambar(), Toast.LENGTH_LONG).show();
+           ivGambar.setImageBitmap(DataConverter.convertByteArray2Image(user.getGambar()));
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap bitmap = ((BitmapDrawable)ivGambar.getDrawable()).getBitmap();
-
-                user.setGambar(bitmapToBase64(bitmap));
-                if(!user.getNama().equals("") && !user.getNoTelp().equals("") && !user.getEmail().equals("") &&
-                        !user.getPassword().equals("") && !user.getConfirmPassword().equals("")
+                if(bitmap!=null){
+                    user.setGambar(DataConverter.convertImage2ByteArray(bitmap));
+                }
+                if(!user.getNama().equals("") && !user.getNoTelp().equals("") && !user.getConfirmPassword().equals("")
                          && user.getPassword().equals(user.getConfirmPassword())){
                     updateUser();
                     user.setConfirmPassword("");
                 }else if(!user.getPassword().equals(user.getConfirmPassword())){
                     Toast.makeText(getActivity(), "Confirm password salah", Toast.LENGTH_SHORT).show();
+                    getUser();
                 }else {
                     Toast.makeText(getActivity(), "Data belum lengkap", Toast.LENGTH_SHORT).show();
+                    getUser();
                 }
             }
         });
@@ -208,6 +208,7 @@ public class FragmentProfile extends Fragment {
         bitmap = getResizedBitmap(bitmap, 512);
 
         ivGambar.setImageBitmap(bitmap);
+
     }
 
     private Bitmap getResizedBitmap(Bitmap bitmap, int maxSize) {
@@ -260,4 +261,34 @@ public class FragmentProfile extends Fragment {
         updateUser.execute();
     }
 
+    private void getUser(){
+        class GetUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+                User newUser = DatabaseDelivery.getInstance(getActivity().getApplicationContext())
+                        .getDatabase()
+                        .userDao()
+                        .getNew(user.getEmail());
+                return newUser;
+            }
+
+            @Override
+            protected void onPostExecute(User users) {
+                super.onPostExecute(users);
+                if(!(users == null)){
+                    user = users;
+                }
+            }
+        }
+        GetUser getUser = new GetUser();
+        getUser.execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getUser();
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
 }

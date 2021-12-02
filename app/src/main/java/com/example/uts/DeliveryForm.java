@@ -210,7 +210,7 @@ public class DeliveryForm extends AppCompatActivity {
 
     private void bookDelivery(){
         Delivery deliv = new Delivery(
-                delivery.getNamaPenerima(),
+                delivery.getNamaPenerima(), 
                 delivery.getTipe(),
                 delivery.getFragile(),
                 delivery.getAddPickup(),

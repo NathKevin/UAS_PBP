@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Register extends AppCompatActivity {
     User user;
     ActivityRegisterBinding binding;
-
     FirebaseAuth mAuth;
 
     @Override
@@ -38,6 +39,8 @@ public class Register extends AppCompatActivity {
         user.setConfirmPassword("");
         user.setNoTelp("");
         user.setUang(0);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.person);
+        user.setGambar(DataConverter.convertImage2ByteArray(bitmap));
 
         mAuth = FirebaseAuth.getInstance();
     }
