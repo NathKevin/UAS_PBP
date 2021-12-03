@@ -33,6 +33,7 @@ import com.example.uts.database.DatabaseDelivery;
 import com.example.uts.databinding.ActivityDeliveryFormBinding;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.DeliveryResponse;
+import com.example.uts.model.DeliveryResponseData;
 import com.example.uts.model.User;
 import com.google.gson.Gson;
 
@@ -75,12 +76,12 @@ public class DeliveryForm extends AppCompatActivity {
 
         if(id_delivery == -1){
             delivery.setIdUser(user.getId());
-            delivery.setIdPengantar(-1);
-            delivery.setAddPickup("Solo");
-            delivery.setAddTujuan("Jojga");
-            delivery.setFragile("Yes");
-            delivery.setNamaPenerima("Kevin2");
-            delivery.setTipe("Food");
+            // delivery.setIdPengantar("");
+            delivery.setAddPickup("");
+            delivery.setAddTujuan("");
+            delivery.setFragile("");
+            delivery.setNamaPenerima("");
+            delivery.setTipe("");
         }else{
             getDelivery(id_delivery);
         }
@@ -167,9 +168,9 @@ public class DeliveryForm extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                DeliveryResponse deliveryResponse =
-                        gson.fromJson(response, DeliveryResponse.class);
-                Delivery deliv = deliveryResponse.getDeliveryList().get(0);
+                DeliveryResponseData deliveryResponse =
+                        gson.fromJson(response, DeliveryResponseData.class);
+                Delivery deliv = deliveryResponse.getDelivery();
                 delivery.setIdDelivery(deliv.getIdDelivery());
                 delivery.setIdUser(deliv.getIdUser());
                 delivery.setIdPengantar(deliv.getIdPengantar());
@@ -216,7 +217,7 @@ public class DeliveryForm extends AppCompatActivity {
                 delivery.getAddPickup(),
                 delivery.getAddTujuan(),
                 user.getId(),
-                -1); //INI RANDOM INGATTTTTTTTTTTTTTTTTTTT
+                2); //INI RANDOM INGATTTTTTTTTTTTTTTTTTTT
 
         StringRequest stringRequest = new StringRequest(POST, DeliveryAPI.ADD_URL,
                 new Response.Listener<String>() {
@@ -225,8 +226,8 @@ public class DeliveryForm extends AppCompatActivity {
                         Gson gson = new Gson();
                          /* Deserialiasai data dari response JSON dari API
                          menjadi java object MahasiswaResponse menggunakan Gson */
-                        DeliveryResponse deliveryResponse =
-                                gson.fromJson(response, DeliveryResponse.class);
+                        DeliveryResponseData deliveryResponse =
+                                gson.fromJson(response, DeliveryResponseData.class);
                         Toast.makeText(DeliveryForm.this,
                                 deliveryResponse.getMessage(),
                                 Toast.LENGTH_SHORT).show();
@@ -288,8 +289,8 @@ public class DeliveryForm extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                DeliveryResponse deliveryResponse =
-                        gson.fromJson(response, DeliveryResponse.class);
+                DeliveryResponseData deliveryResponse =
+                        gson.fromJson(response, DeliveryResponseData.class);
                 Toast.makeText(DeliveryForm.this,
                         deliveryResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();

@@ -2,15 +2,12 @@ package com.example.uts.adapter;
 
 import static com.android.volley.Request.Method.DELETE;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,7 +27,7 @@ import com.example.uts.R;
 import com.example.uts.api.DeliveryAPI;
 import com.example.uts.databinding.AdapterRecyclerViewBinding;
 import com.example.uts.model.Delivery;
-import com.example.uts.model.DeliveryResponse;
+import com.example.uts.model.DeliveryResponseData;
 import com.example.uts.model.User;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
@@ -126,8 +123,8 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                DeliveryResponse deliveryResponse =
-                        gson.fromJson(response, DeliveryResponse.class);
+                DeliveryResponseData deliveryResponse =
+                        gson.fromJson(response, DeliveryResponseData.class);
                 Toast.makeText(fragmentHome.getActivity(), 
                         deliveryResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 fragmentHome.getAllDelivery(id_user);

@@ -110,7 +110,8 @@ public class FragmentHome extends Fragment {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 DeliveryResponse deliveryResponse =gson.fromJson(response,DeliveryResponse.class);
-                deliveryAdapter = new DeliveryAdapter(deliveryResponse.getDeliveryList(), getContext(), FragmentHome.this, user);
+                deliveryAdapter = new DeliveryAdapter(deliveryResponse.getDeliveryList(), getActivity(), FragmentHome.this, user);
+                rv_delivery.setAdapter(deliveryAdapter);
                 Toast.makeText(getActivity(), deliveryResponse.getMessage(),Toast.LENGTH_SHORT).show();
                 srDelivery.setRefreshing(false);
             }
