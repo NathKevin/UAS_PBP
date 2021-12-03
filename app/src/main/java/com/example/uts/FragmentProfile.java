@@ -82,8 +82,19 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         View view = binding.getRoot();
-        binding.setUser2(user);
-        temp = user;
+
+        temp = new User();
+        temp.setUang(user.getUang());
+        temp.setNoTelp(user.getNoTelp());
+        temp.setNama(user.getNama());
+        temp.setEmail(user.getEmail());
+        temp.setPassword(user.getPassword());
+        temp.setGambar(user.getGambar());
+        temp.setId(user.getId());
+        temp.setConfirmPassword(user.getConfirmPassword());
+
+        binding.setUser2(temp);
+
         binding.setFragment(this);
         user.setConfirmPassword("");
 
@@ -95,26 +106,51 @@ public class FragmentProfile extends Fragment {
 
         Button btnSave = view.findViewById(R.id.btnSave);
         ivGambar = view.findViewById(R.id.iv_gambar);
-        if(user.getGambar()!=null){
-           ivGambar.setImageBitmap(DataConverter.convertByteArray2Image(user.getGambar()));
+        if(temp.getGambar()!=null){
+           ivGambar.setImageBitmap(DataConverter.convertByteArray2Image(temp.getGambar()));
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(bitmap!=null){
-                    user.setGambar(DataConverter.convertImage2ByteArray(bitmap));
+                    temp.setGambar(DataConverter.convertImage2ByteArray(bitmap));
                 }
-                if(!user.getNama().equals("") && !user.getNoTelp().equals("") && !user.getConfirmPassword().equals("")
-                         && user.getPassword().equals(user.getConfirmPassword())){
+                if(!temp.getNama().equals("") && !temp.getNoTelp().equals("") && !temp.getConfirmPassword().equals("")
+                         && temp.getPassword().equals(temp.getConfirmPassword())){
+
+                    user.setUang(temp.getUang());
+                    user.setNoTelp(temp.getNoTelp());
+                    user.setNama(temp.getNama());
+                    user.setEmail(temp.getEmail());
+                    user.setPassword(temp.getPassword());
+                    user.setGambar(temp.getGambar());
+                    user.setId(temp.getId());
+                    user.setConfirmPassword(temp.getConfirmPassword());
                     updateUser();
-                    user.setConfirmPassword("");
-                }else if(!user.getPassword().equals(user.getConfirmPassword())){
+                    temp.setConfirmPassword("");
+                }else if(!temp.getPassword().equals(temp.getConfirmPassword())){
                     Toast.makeText(getActivity(), "Confirm password salah", Toast.LENGTH_SHORT).show();
-                    getUser();
+
+                    temp.setUang(user.getUang());
+                    temp.setNoTelp(user.getNoTelp());
+                    temp.setNama(user.getNama());
+                    temp.setEmail(user.getEmail());
+                    temp.setPassword(user.getPassword());
+                    temp.setGambar(user.getGambar());
+                    temp.setId(user.getId());
+                    temp.setConfirmPassword(user.getConfirmPassword());;
                 }else {
                     Toast.makeText(getActivity(), "Data belum lengkap", Toast.LENGTH_SHORT).show();
-                    getUser();
+
+                    temp.setUang(user.getUang());
+                    temp.setNoTelp(user.getNoTelp());
+                    temp.setNama(user.getNama());
+                    temp.setEmail(user.getEmail());
+                    temp.setPassword(user.getPassword());
+                    temp.setGambar(user.getGambar());
+                    temp.setId(user.getId());
+                    temp.setConfirmPassword(user.getConfirmPassword());
                 }
             }
         });
@@ -261,34 +297,34 @@ public class FragmentProfile extends Fragment {
         updateUser.execute();
     }
 
-    private void getUser(){
-        class GetUser extends AsyncTask<Void, Void, User> {
+//    private void getUser(){
+//        class GetUser extends AsyncTask<Void, Void, User> {
+//
+//            @Override
+//            protected User doInBackground(Void... voids) {
+//                User newUser = DatabaseDelivery.getInstance(getActivity().getApplicationContext())
+//                        .getDatabase()
+//                        .userDao()
+//                        .getNew(user.getEmail());
+//                return newUser;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(User users) {
+//                super.onPostExecute(users);
+//                if(!(users == null)){
+//                    user = users;
+//                }
+//            }
+//        }
+//        GetUser getUser = new GetUser();
+//        getUser.execute();
+//    }
 
-            @Override
-            protected User doInBackground(Void... voids) {
-                User newUser = DatabaseDelivery.getInstance(getActivity().getApplicationContext())
-                        .getDatabase()
-                        .userDao()
-                        .getNew(user.getEmail());
-                return newUser;
-            }
-
-            @Override
-            protected void onPostExecute(User users) {
-                super.onPostExecute(users);
-                if(!(users == null)){
-                    user = users;
-                }
-            }
-        }
-        GetUser getUser = new GetUser();
-        getUser.execute();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getUser();
-        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getUser();
+//        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+//    }
 }
