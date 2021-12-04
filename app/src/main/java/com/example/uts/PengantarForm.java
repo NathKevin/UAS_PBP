@@ -69,17 +69,18 @@ public class PengantarForm extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(id!=-1){
-                    Toast.makeText(PengantarForm.this, "MASUK UPDATE ", Toast.LENGTH_SHORT).show();
-                    updatePengantar(id);
+                if(tvNama.getText().equals("") || tvNotelp.getText().equals("")){
+                    Toast.makeText(PengantarForm.this, "Data belum lengkap", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(PengantarForm.this, "MASUK CREATE", Toast.LENGTH_SHORT).show();
-                    createPengantar();
+                    if(id!=-1){
+                        Toast.makeText(PengantarForm.this, "MASUK UPDATE ", Toast.LENGTH_SHORT).show();
+                        updatePengantar(id);
+                    }else{
+                        Toast.makeText(PengantarForm.this, "MASUK CREATE", Toast.LENGTH_SHORT).show();
+                        createPengantar();
+                    }
+
                 }
-                Intent balik = new Intent(PengantarForm.this, MainActivity.class);
-                balik.putExtra("user",user);
-                balik.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(balik);
             }
         });
     }
@@ -141,9 +142,13 @@ public class PengantarForm extends AppCompatActivity {
                         Toast.makeText(PengantarForm.this,
                                 pengantarResponse.getMessage(),
                                 Toast.LENGTH_SHORT).show();
-                        Intent returnIntent = new Intent();
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
+                        Intent balik = new Intent(PengantarForm.this, MainActivity.class);
+                        balik.putExtra("user",user);
+                        balik.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(balik);
+//                        Intent returnIntent = new Intent();
+//                        setResult(Activity.RESULT_OK, returnIntent);
+//                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
