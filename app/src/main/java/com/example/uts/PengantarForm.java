@@ -26,6 +26,7 @@ import com.example.uts.model.Delivery;
 import com.example.uts.model.DeliveryResponse;
 import com.example.uts.model.Pengantar;
 import com.example.uts.model.PengantarResponse;
+import com.example.uts.model.PengantarResponseData;
 import com.example.uts.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -63,17 +64,17 @@ public class PengantarForm extends AppCompatActivity {
             tvNotelp.setText("");
         }else{
             getPengantar(id);
-            tvNama.setText(pengantar.getNama());
-            tvNotelp.setText(pengantar.getNoTelp());
         }
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(id!=-1){
-                    createPengantar();
-                }else{
+                    Toast.makeText(PengantarForm.this, "MASUK UPDATE ", Toast.LENGTH_SHORT).show();
                     updatePengantar(id);
+                }else{
+                    Toast.makeText(PengantarForm.this, "MASUK CREATE", Toast.LENGTH_SHORT).show();
+                    createPengantar();
                 }
                 Intent balik = new Intent(PengantarForm.this, MainActivity.class);
                 balik.putExtra("user",user);
@@ -89,11 +90,13 @@ public class PengantarForm extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                PengantarResponse pengantarResponse =
-                        gson.fromJson(response, PengantarResponse.class);
-                Pengantar p = pengantarResponse.getPengantarList().get(0);
-                pengantar.setNama(p.getNama());
-                pengantar.setNoTelp(p.getNoTelp());
+                PengantarResponseData pengantarResponse =
+                        gson.fromJson(response, PengantarResponseData.class);
+                Pengantar p = pengantarResponse.getPengantar();
+                tvNama.setText(p.getNama());
+                tvNotelp.setText(p.getNoTelp());
+                //pengantar.setNama(p.getNama());
+                //pengantar.setNoTelp(p.getNoTelp());
                 Toast.makeText(PengantarForm.this,
                         pengantarResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -133,8 +136,8 @@ public class PengantarForm extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        PengantarResponse pengantarResponse =
-                                gson.fromJson(response, PengantarResponse.class);
+                        PengantarResponseData pengantarResponse =
+                                gson.fromJson(response, PengantarResponseData.class);
                         Toast.makeText(PengantarForm.this,
                                 pengantarResponse.getMessage(),
                                 Toast.LENGTH_SHORT).show();
@@ -193,8 +196,8 @@ public class PengantarForm extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                PengantarResponse pengantarResponse =
-                        gson.fromJson(response, PengantarResponse.class);
+                PengantarResponseData pengantarResponse =
+                        gson.fromJson(response, PengantarResponseData.class);
                 Toast.makeText(PengantarForm.this,
                         pengantarResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();

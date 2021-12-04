@@ -34,6 +34,7 @@ import com.example.uts.databinding.AdapterRecyclerViewBinding;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.Pengantar;
 import com.example.uts.model.PengantarResponse;
+import com.example.uts.model.PengantarResponseData;
 import com.example.uts.model.User;
 import com.google.gson.Gson;
 
@@ -88,6 +89,8 @@ public class PengantarAdapter extends RecyclerView.Adapter<PengantarAdapter.View
     @Override
     public void onBindViewHolder(@NonNull PengantarAdapter.ViewHolder holder, int position) {
         Pengantar currentPengantar = pengantarList.get(position);
+        holder.tvName.setText(currentPengantar.getNama());
+        holder.tvNoTelp.setText(currentPengantar.getNoTelp());
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +126,8 @@ public class PengantarAdapter extends RecyclerView.Adapter<PengantarAdapter.View
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                PengantarResponse pengantarResponse =
-                        gson.fromJson(response, PengantarResponse.class);
+                PengantarResponseData pengantarResponse =
+                        gson.fromJson(response, PengantarResponseData.class);
 
                 Toast.makeText(fragmentPengantar.getActivity(), 
                         pengantarResponse.getMessage(), Toast.LENGTH_SHORT).show();

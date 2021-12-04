@@ -46,7 +46,6 @@ import java.util.Map;
 public class FragmentPengantar extends Fragment {
 
     SwipeRefreshLayout srRefresh;
-    SearchView svPengantar;
     FloatingActionButton fab_add;
     private RecyclerView rv_pengantar;
     private List<Pengantar> pengantarList;
@@ -73,16 +72,17 @@ public class FragmentPengantar extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         srRefresh = view.findViewById(R.id.srPengantar);
-        svPengantar = view.findViewById(R.id.sv_pengantar);
         rv_pengantar = view.findViewById(R.id.rv_pengantarList);
         rv_pengantar.setLayoutManager(new LinearLayoutManager(getActivity()));
         queue = Volley.newRequestQueue(getContext());
         fab_add = view.findViewById(R.id.fab_add);
+        getAllPengantar();
         
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), PengantarForm.class);
+                intent.putExtra("dataUser", user);
                 startActivity(intent);
             }
         });
@@ -95,7 +95,8 @@ public class FragmentPengantar extends Fragment {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 PengantarResponse pengantarResponse =gson.fromJson(response,PengantarResponse.class);
-                pengantarAdapter = new PengantarAdapter(pengantarResponse.getPengantarList(), getContext(), FragmentPengantar.this, user);
+                pengantarAdapter = new PengantarAdapter(pengantarResponse.getPengantarList(), getActivity(), FragmentPengantar.this, user);
+                rv_pengantar.setAdapter(pengantarAdapter);
                 Toast.makeText(getActivity(), pengantarResponse.getMessage(),Toast.LENGTH_SHORT).show();
                 srRefresh.setRefreshing(false);
             }
