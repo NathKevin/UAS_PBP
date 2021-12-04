@@ -16,6 +16,7 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -29,20 +30,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.uts.api.DeliveryAPI;
+import com.example.uts.api.PengantarAPI;
 import com.example.uts.database.DatabaseDelivery;
 import com.example.uts.databinding.ActivityDeliveryFormBinding;
 import com.example.uts.model.Delivery;
 import com.example.uts.model.DeliveryResponse;
 import com.example.uts.model.DeliveryResponseData;
+import com.example.uts.model.Pengantar;
+import com.example.uts.model.PengantarResponse;
 import com.example.uts.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DeliveryForm extends AppCompatActivity {
 
@@ -57,6 +64,8 @@ public class DeliveryForm extends AppCompatActivity {
     Integer id_delivery=null;
     String addressPickup, addressDestination;
     private RequestQueue queue;
+    List<Pengantar> list;
+    int random;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -75,8 +84,8 @@ public class DeliveryForm extends AppCompatActivity {
         binding.setActivity(this);
 
         if(id_delivery == -1){
+            getAllPengantar();
             delivery.setIdUser(user.getId());
-            // delivery.setIdPengantar("");
             delivery.setAddPickup("");
             delivery.setAddTujuan("");
             delivery.setFragile("");
@@ -217,7 +226,7 @@ public class DeliveryForm extends AppCompatActivity {
                 delivery.getAddPickup(),
                 delivery.getAddTujuan(),
                 user.getId(),
-                2); //INI RANDOM INGATTTTTTTTTTTTTTTTTTTT
+                delivery.getIdPengantar()); //INI RANDOM INGATTTTTTTTTTTTTTTTTTTT
 
         StringRequest stringRequest = new StringRequest(POST, DeliveryAPI.ADD_URL,
                 new Response.Listener<String>() {
@@ -335,6 +344,44 @@ public class DeliveryForm extends AppCompatActivity {
             }
         };
         // Menambahkan request ke request queue
+        queue.add(stringRequest);
+    }
+
+    public void getAllPengantar(){
+        StringRequest stringRequest = new StringRequest(GET, PengantarAPI.GET_ALL_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                PengantarResponse pengantarResponse =gson.fromJson(response,PengantarResponse.class);
+                random = ThreadLocalRandom.current().nextInt(0, pengantarResponse.getPengantarList().size());
+                Log.d("ANJENGGGGGGGGGGGGGG", String.valueOf(pengantarResponse.getPengantarList().size()));
+                Log.d("BAMBANGGGGGGGGGGGGG", String.valueOf(random));
+//                random = new Random().nextInt(pengantarResponse.getPengantarList().size());
+                delivery.setIdPengantar(pengantarResponse.getPengantarList().get(random).getId());
+                Log.d("BEBEKKKKKKKKKKkkkkkkk", String.valueOf(delivery.getIdPengantar()));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
+                    JSONObject errors = new JSONObject(responseBody);
+                    Toast.makeText(DeliveryForm.this,
+                            errors.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(DeliveryForm.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+        };
         queue.add(stringRequest);
     }
 

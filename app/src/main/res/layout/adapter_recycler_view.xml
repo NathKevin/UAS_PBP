@@ -136,6 +136,25 @@
                     app:layout_constraintStart_toEndOf="@id/textTujuan"
                     app:layout_constraintTop_toBottomOf="@+id/isiAsal"
                     tools:layout_editor_absoluteX="190dp" />
+                <TextView
+                    android:id="@+id/textPengantarId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Pengantar :"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textAsal"
+                    app:layout_constraintTop_toBottomOf="@+id/textTujuan"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/isiPengantarId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="123"
+                    android:text="@{String.valueOf(deliver.idPengantar)}"
+                    android:textSize="17dp"
+                    app:layout_constraintStart_toEndOf="@id/textTujuan"
+                    app:layout_constraintTop_toBottomOf="@+id/isiTujuan" />
 
                 <ImageButton
                     android:id="@+id/btn_delete"

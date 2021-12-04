@@ -110,11 +110,13 @@ public class Delivery extends BaseObservable {
         this.idUser = idUser;
     }
 
+    @Bindable
     public int getIdPengantar() {
         return idPengantar;
     }
     public void setIdPengantar(int idPengantar) {
         this.idPengantar = idPengantar;
+        notifyPropertyChanged(BR.idPengantar);
     }
 
     public int getIdDelivery() {

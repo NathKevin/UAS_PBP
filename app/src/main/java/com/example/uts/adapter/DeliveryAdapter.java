@@ -56,8 +56,8 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
         }
 
         public void bind(Delivery delivery){
-            binding.setDeliver(delivery);
             binding.executePendingBindings();
+            binding.setDeliver(delivery);
         }
     }
 
