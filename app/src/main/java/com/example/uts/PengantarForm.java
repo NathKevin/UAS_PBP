@@ -20,6 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.uts.UnitTesting.ActivityUtil;
+import com.example.uts.UnitTesting.PengantarPresenter;
+import com.example.uts.UnitTesting.PengantarService;
+import com.example.uts.UnitTesting.PengantarView;
 import com.example.uts.api.DeliveryAPI;
 import com.example.uts.api.PengantarAPI;
 import com.example.uts.model.Delivery;
@@ -38,7 +42,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PengantarForm extends AppCompatActivity {
+public class PengantarForm extends AppCompatActivity implements PengantarView {
 
     TextInputEditText tvNama, tvNotelp;
     Button btnAdd;
@@ -46,6 +50,9 @@ public class PengantarForm extends AppCompatActivity {
     public RequestQueue queue;
     User user;
     Integer id;
+
+    //data unit testing
+    private PengantarPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +156,9 @@ public class PengantarForm extends AppCompatActivity {
 //                        Intent returnIntent = new Intent();
 //                        setResult(Activity.RESULT_OK, returnIntent);
 //                        finish();
+
+                        // code testing
+                        presenter.onPengantarClicked();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -187,6 +197,43 @@ public class PengantarForm extends AppCompatActivity {
         };
         // Menambahkan request ke request queue
         queue.add(stringRequest);
+    }
+
+
+    // data unit testing
+    @Override
+    public String getName() {
+        return tvNama.getText().toString();
+    }
+
+    @Override
+    public void showNameError(String message) {
+        tvNama.setError(message);
+    }
+
+    @Override
+    public String getNoTelp() {
+        return tvNotelp.getText().toString();
+    }
+
+    @Override
+    public void showNoTelpError(String message) {
+        tvNotelp.setError(message);
+    }
+
+    @Override
+    public void startMainPengantar() {
+        new ActivityUtil(this).startMainPengantar();
+    }
+
+    @Override
+    public void showPengantarError(String message) {
+        Toast.makeText(PengantarForm.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorResponse(String message) {
+        Toast.makeText(PengantarForm.this, message, Toast.LENGTH_SHORT).show();
     }
 
 

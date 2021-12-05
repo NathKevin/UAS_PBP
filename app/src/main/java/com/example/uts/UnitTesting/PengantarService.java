@@ -30,10 +30,7 @@ public class PengantarService {
 
     public void pengantar(final PengantarView view, Pengantar pengantar, final
     PengantarCallback callback) {
-//        queue = Volley.newRequestQueue();
-        Pengantar temp = new Pengantar();
-        temp.setNama(pengantar.getNama());
-        temp.setNoTelp(pengantar.getNoTelp());
+
         StringRequest stringRequest = new StringRequest(POST, PengantarAPI.ADD_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -76,7 +73,7 @@ public class PengantarService {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 Gson gson = new Gson();
-                String requestBody = gson.toJson(temp);
+                String requestBody = gson.toJson(pengantar);
                 return requestBody.getBytes(StandardCharsets.UTF_8);
             }
 
@@ -88,5 +85,21 @@ public class PengantarService {
         };
         // Menambahkan request ke request queue
         queue.add(stringRequest);
+    }
+
+    public Boolean getValid(final PengantarView view, Pengantar pengantar) {
+        final Boolean[] bool = new Boolean[1];
+        pengantar(view, pengantar, new PengantarCallback() {
+            @Override
+            public void onSuccess(boolean value, Pengantar pengantar) {
+                bool[0] = true;
+            }
+
+            @Override
+            public void onError() {
+                bool[0] = false;
+            }
+        });
+        return bool[0];
     }
 }
