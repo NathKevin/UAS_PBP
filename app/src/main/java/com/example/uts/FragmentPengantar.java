@@ -86,6 +86,13 @@ public class FragmentPengantar extends Fragment {
                 startActivity(intent);
             }
         });
+
+        srRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllPengantar();
+            }
+        });
     }
 
     public void getAllPengantar(){

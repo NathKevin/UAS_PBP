@@ -96,6 +96,13 @@ public class FragmentHome extends Fragment {
         rv_delivery.setLayoutManager(new LinearLayoutManager(getActivity()));
         srDelivery = view.findViewById(R.id.srDelivery);
 
+        srDelivery.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllDelivery(user.getId());
+            }
+        });
+
         getAllDelivery(user.getId());
     }
 

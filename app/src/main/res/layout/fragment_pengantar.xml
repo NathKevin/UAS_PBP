@@ -40,6 +40,7 @@
                     android:id="@+id/rv_pengantarList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     tools:listitem="@layout/adapter_pengantar"/>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
